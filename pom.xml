@@ -84,6 +84,19 @@
 			<optional>true</optional>
 		</dependency>
 
+		<!--QRcode-->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+
 
 		<!--&lt;!&ndash;스프링과 AWS S3 서버 연결 관련 설정 &ndash;&gt;-->
 		<!--&lt;!&ndash; https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk &ndash;&gt;-->

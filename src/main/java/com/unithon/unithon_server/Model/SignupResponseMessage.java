@@ -1,4 +1,4 @@
-package com.unithon.unithon_server.SignIn.Model;
+package com.unithon.unithon_server.Model;
 
 
 import lombok.Getter;
@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class SigninResponseMessage {
+public class SignupResponseMessage {
 
     // HttpStatus
     private String status;
@@ -17,14 +17,15 @@ public class SigninResponseMessage {
     // Error Message to USER
     private String errorMessage;
     // Error Code
-    private String errorCode;
+    private int statusCode;
 
-    public SigninResponseMessage() {}
 
-    public SigninResponseMessage(String status, String message, String errorCode, String errorMessage) {
+    public SignupResponseMessage() {}
+
+    public SignupResponseMessage(String status, String message, int statusCode, String errorMessage) {
         this.status = status;
         this.message = message;
-        this.errorCode = errorCode;
+        this.statusCode = statusCode;
         this.errorMessage = errorMessage;
     }
 }

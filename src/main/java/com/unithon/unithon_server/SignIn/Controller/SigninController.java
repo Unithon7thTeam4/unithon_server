@@ -2,8 +2,8 @@ package com.unithon.unithon_server.SignIn.Controller;
 
 
 import com.unithon.unithon_server.Mapper.UserMapper;
-import com.unithon.unithon_server.SignIn.Model.SigninResponseMessage;
-import com.unithon.unithon_server.SignIn.Model.User;
+import com.unithon.unithon_server.Model.SigninResponseMessage;
+import com.unithon.unithon_server.Model.User;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,18 +31,24 @@ public class SigninController {
 
 
 
-    @RequestMapping(value = "/signin" ,method = RequestMethod.POST)
+    @RequestMapping(value = "/signIn" ,method = RequestMethod.GET)
     @ExceptionHandler({SQLException.class,DataAccessException.class})
-    public ResponseEntity<SigninResponseMessage> SignIn(@Valid @RequestBody String email) throws Exception{
-        if(userMapper.findUserByEmail(email) != null){
-            SigninResponseMessage message = new SigninResponseMessage("Fail", "", "500", "email already exist");
+    public ResponseEntity<SigninResponseMessage> SignIn(@Valid @RequestBody User user) throws Exception{
+
+        System.out.println(user.getId());
+        if(userMapper.isIdExist(user) == null){
+            SigninResponseMessage message = new SigninResponseMessage("Fail", "", "401", "not found id");
             return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
-        } else {
-            User user = new User(email,UUID.randomUUID().toString(), "asdf" );
-            userMapper.insertUser(user);
-            SigninResponseMessage message = new SigninResponseMessage("Success",user.getUuid(), "", "");
-            return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.OK);
+        }else {
+            if(userMapper.validPW(user) == null){
+                SigninResponseMessage message = new SigninResponseMessage("Fail", "", "401", "not valid pw");
+                return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+            }else{
+                SigninResponseMessage message = new SigninResponseMessage("Success", "", "200", "");
+                return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.OK);
+            }
         }
+
 
     }
 
