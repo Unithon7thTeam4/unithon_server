@@ -33,14 +33,13 @@ public class SigninController {
 
     @RequestMapping(value = "/signIn" ,method = RequestMethod.GET)
     @ExceptionHandler({SQLException.class,DataAccessException.class})
-    public ResponseEntity<SigninResponseMessage> SignIn(@Valid @RequestBody User user) throws Exception{
+    public ResponseEntity<SigninResponseMessage> SignIn(@RequestParam("id") String id, @RequestParam("password") String password) throws Exception{
 
-        System.out.println(user.getId());
-        if(userMapper.isIdExist(user) == null){
+        if(userMapper.isIdExist(id) == null){
             SigninResponseMessage message = new SigninResponseMessage("Fail", "", "401", "not found id");
             return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
         }else {
-            if(userMapper.validPW(user) == null){
+            if(userMapper.validPW(password) == null){
                 SigninResponseMessage message = new SigninResponseMessage("Fail", "", "401", "not valid pw");
                 return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
             }else{
@@ -48,9 +47,13 @@ public class SigninController {
                 return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.OK);
             }
         }
-
-
     }
+
+//    @RequestMapping(value = "/signIn" ,method = RequestMethod.GET)
+//    @ExceptionHandler({SQLException.class,DataAccessException.class})
+//    public String a(@RequestParam("id") String id, @RequestParam("password") String password) throws Exception{
+//         return "sdf";
+//    }
 
 
 

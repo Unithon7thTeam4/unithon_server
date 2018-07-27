@@ -1,5 +1,9 @@
 package com.unithon.unithon_server;
 
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3Client;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -28,4 +32,5 @@ public class UnithonServerApplication {
 		sessionFactory.setDataSource(dataSource);
 		return sessionFactory.getObject();
 	}
+	
 }

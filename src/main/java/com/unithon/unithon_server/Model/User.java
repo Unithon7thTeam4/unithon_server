@@ -1,18 +1,34 @@
 package com.unithon.unithon_server.Model;
 
+
+import lombok.ToString;
+
+//@ToString
 public class User {
 
-        private String email;
-        private String id;
-        private String password;
+    private String id;
+    private String password;
+    private String qr_code;
 
-    public String getEmail() {
-        return email;
+    public String getQr_code() {
+        return qr_code;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setQr_code(String qr_code) {
+        this.qr_code = qr_code;
     }
+
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+
 
     public String getId() {
         return id;
@@ -31,10 +47,10 @@ public class User {
     }
 
     public User(){}
-        public User(String email, String id, String password){
-            this.email = email;
-            this.id = id;
-            this.password = password;
-        }
+    public User(String id, String password, String token){
+        this.id = id;
+        this.password = password;
+        this.token = token;
+    }
 
 }

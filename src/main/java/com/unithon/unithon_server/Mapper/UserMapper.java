@@ -15,15 +15,15 @@ public interface UserMapper {
      @Select("SELECT * FROM User")
      List<User> getUsers() throws Exception;
 
-     @Select("INSERT INTO User(id,password,email) VALUES(#{id},#{password},#{email})")
+     @Select("INSERT INTO User(id,password,token,qr_code) VALUES(#{id},#{password},#{token},#{qr_code})")
      User insertUser(User user) throws Exception;
 
 
      @Select("SELECT * From User WHERE id = #{id}")
-     User isIdExist(User user) throws Exception;
+     User isIdExist(String id) throws Exception;
 
      @Select("SELECT * From User WHERE id = #{id} and password = #{password}")
-     User validPW(User user) throws Exception;
+     User validPW(String password) throws Exception;
 
 
 

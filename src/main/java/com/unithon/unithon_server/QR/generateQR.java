@@ -13,26 +13,25 @@ import java.nio.file.Path;
 
 public class generateQR {
 
-    public  void generateQRcode() throws Exception {
+    public  File generateQRcode(String contents,String id)  {
 
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix bitMatrix = qrCodeWriter.encode(
-                "JavaSampleApproach\nJava Technology, Spring Framework",
-                BarcodeFormat.QR_CODE,
-                350, 350); // width x height
-
-
-
-        Path path = FileSystems.getDefault().getPath("/Users/namkiwon/Desktop/a.png");
-        System.out.println(path.toString());
-
-        BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-        // ImageIO를 사용한 바코드 파일쓰기
+        File file = null;
         try {
-            ImageIO.write(bufferedImage, "png", new File("/Users/namkiwon/Desktop/a.png"));
-        }catch (NumberFormatException e){
-            System.out.println( "  ");
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(
+                    contents,
+                    BarcodeFormat.QR_CODE,
+                    300, 300); // width x height
+
+            BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
+            // ImageIO를 사용한 바코드 파일쓰기
+            file = new File("./"+id+"_qr.png");
+
+            ImageIO.write(bufferedImage, "png", file);
+        }catch (Exception e){
+            e.getStackTrace();
         }
 
+        return file;
     }
 }
