@@ -31,7 +31,7 @@ public class CompleteController {
 
     @RequestMapping(value = "/complete" ,method = RequestMethod.POST)
     @ExceptionHandler({SQLException.class,DataAccessException.class})
-    public ResponseEntity<CompleteResponseMessage> complete(@RequestParam("id") String id, @RequestParam("strch_type") String strch_type, int count, @RequestParam("capture") MultipartFile capture) throws Exception{
+    public ResponseEntity<CompleteResponseMessage> complete(@RequestParam("id") String id, @RequestParam("strch_type") String strch_type,int count) throws Exception{
         Complete complete = new Complete(id,strch_type,count);
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
         Date currentTime = new Date ();
@@ -50,8 +50,8 @@ public class CompleteController {
             return new ResponseEntity<CompleteResponseMessage>(message, HttpStatus.FORBIDDEN);
         }else{
 
-            complete.setCapture(s3Uploader.upload(capture, "Capture"));
-            completeMapper.inserComplete(complete);
+//            complete.setCapture(s3Uploader.upload(capture, "Capture"));
+//            completeMapper.inserComplete(complete);
             int steady_cnt = completeMapper.getStedy(id);
 
             if(completeMapper.checkSteady(new SteadyCheck(id,mTime,"plus")) == null)
