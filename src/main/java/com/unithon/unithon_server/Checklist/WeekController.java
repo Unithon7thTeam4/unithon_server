@@ -44,7 +44,7 @@ public class WeekController {
         Gson gson = new Gson();
 
         SteadyCheck sc = new SteadyCheck(id,yesterday,"minus");
-        System.out.println(yesterday);
+        System.out.println(mTime);
         if(weekMapper.getComplete(new DateModel(id,yesterday)).size() == 0 && weekMapper.checkSteady(new SteadyCheck(id,mTime,"minus")) == null){
             System.out.println("asdf");
             int steady_cnt = weekMapper.getSteadyCnt(id);

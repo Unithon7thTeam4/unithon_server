@@ -3,6 +3,7 @@ package com.unithon.unithon_server.Mapper;
 
 import com.unithon.unithon_server.Model.Complete;
 import com.unithon.unithon_server.Model.Steady;
+import com.unithon.unithon_server.Model.SteadyCheck;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +23,10 @@ public interface CompleteMapper {
     @Select("UPDATE User SET steady_cnt = #{steady_cnt} WHERE id = #{id}")
     void updateSteady(Steady steady) throws Exception;
 
+    @Select("SELECT * FROM SteadyCheck WHERE id = #{id} and date = #{date} and opt = #{opt}")
+    SteadyCheck checkSteady(SteadyCheck check) throws Exception;
 
-
+    @Select("INSERT INTO SteadyCheck(id,date,opt) VALUES(#{id},#{date},#{opt})")
+    void insertSteadyCheck(SteadyCheck check) throws Exception;
 
 }

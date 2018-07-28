@@ -39,10 +39,10 @@ public class GetWeek {
         int inMonth = cal.get(cal.MONTH);
         int inDay = cal.get(cal.DAY_OF_MONTH);
         int yoil = cal.get(cal.DAY_OF_WEEK); //요일나오게하기(숫자로)
-        if(yoil != 1){   //해당요일이 일요일이 아닌경우
+        if(yoil != 2){   //해당요일이 일요일이 아닌경우
             yoil = yoil-2;
         }else{           //해당요일이 일요일인경우
-            yoil = 7;
+            yoil = 8;
         }
         inDay = inDay-yoil;
         for(int i = 0; i < 7;i++){
@@ -52,7 +52,7 @@ public class GetWeek {
             String d = Integer.toString(cal.get(cal.DAY_OF_MONTH));
             if(m.length() == 1) m = "0" + m;
             if(d.length() == 1) d = "0" + d;
-
+            System.out.println( y+"-"+m +"-"+d);
             arrYMD[i] = y+"-"+m +"-"+d;
 
         }
@@ -72,7 +72,6 @@ public class GetWeek {
 
         SimpleDateFormat sdfmt = new SimpleDateFormat("yyyyMMdd");
         Date date = sdfmt.parse(yesterday);
-
         yesterday = new java.text.SimpleDateFormat ("yyyy-MM-dd").format(date);
 
         return yesterday;

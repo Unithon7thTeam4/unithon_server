@@ -53,10 +53,14 @@ public class CompleteController {
             complete.setCapture(s3Uploader.upload(capture, "Capture"));
             completeMapper.inserComplete(complete);
             int steady_cnt = completeMapper.getStedy(id);
-            if(steady_cnt != 7){
+
+            if(completeMapper.checkSteady(new SteadyCheck(id,mTime,"plus")) == null)
+            if(steady_cnt != 3){
                 steady_cnt++;
                 completeMapper.updateSteady(new Steady(id,steady_cnt));
+                completeMapper.insertSteadyCheck(new SteadyCheck(id,mTime,"plus"));
             }
+
             CompleteResponseMessage message = new CompleteResponseMessage("Success","complete stretching", Integer.parseInt(HttpStatus.OK.toString()));
             return new ResponseEntity<CompleteResponseMessage>(message, HttpStatus.OK);
         }
