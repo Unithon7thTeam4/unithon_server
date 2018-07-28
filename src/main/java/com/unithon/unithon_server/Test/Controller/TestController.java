@@ -45,7 +45,7 @@ public class TestController {
 
     @PostMapping("/testParam")
     @ResponseBody
-    public String upload(@RequestParam("data") String id, String password, String token) throws IOException {
+    public String upload(@RequestParam("id") String id, String password, String token) throws IOException {
         System.out.println(id);
         System.out.println(password);
         return password;
