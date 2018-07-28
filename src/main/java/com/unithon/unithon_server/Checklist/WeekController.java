@@ -9,6 +9,7 @@ import com.unithon.unithon_server.Model.Steady;
 import com.unithon.unithon_server.Model.SteadyCheck;
 import com.unithon.unithon_server.Model.WeekResponseMessage;
 import com.unithon.unithon_server.S3.S3Uploader;
+import com.unithon.unithon_server.WeekModel.WeekInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,16 +56,39 @@ public class WeekController {
             }
         }
 
+        WeekInfo weekInfo1 = new WeekInfo();
         for(int i = 0; i < weeklist.length; i++){
             String yoil = yoilArray[i];
             DateModel dateModel = new DateModel(id, weeklist[i]);
-            String arr = gson.toJson(weekMapper.getComplete(dateModel));
-            JsonArray jsonarr = gson.fromJson(arr,JsonArray.class);
-            weekInfo.add(yoil,jsonarr);
+            if(i == 0){
+                weekInfo1.setSun(weekMapper.getComplete(dateModel));
+            }
+            if(i == 1){
+                weekInfo1.setMon(weekMapper.getComplete(dateModel));
+            }
+            if(i == 2){
+                weekInfo1.setTue(weekMapper.getComplete(dateModel));
+            }
+            if(i == 3){
+                weekInfo1.setWed(weekMapper.getComplete(dateModel));
+            }
+            if(i == 4){
+                weekInfo1.setThu(weekMapper.getComplete(dateModel));
+            }
+            if(i == 5){
+                weekInfo1.setFri(weekMapper.getComplete(dateModel));
+            }
+            if(i == 6){
+                weekInfo1.setSat(weekMapper.getComplete(dateModel));
+            }
+//            String arr = gson.toJson(weekMapper.getComplete(dateModel));
+//            JsonArray jsonarr = gson.fromJson(arr,JsonArray.class);
+//            weekInfo.add(yoil,jsonarr);
         }
-        String weekinfo = gson.toJson(weekInfo);
+//        String weekinfo = gson.toJson(weekInfo);
 
-        WeekResponseMessage message = new WeekResponseMessage("success",weekMapper.getSteadyCnt(id),weekinfo, Integer.parseInt(HttpStatus.OK.toString()));
+        Steady steady = new Steady("asd",0);
+        WeekResponseMessage message = new WeekResponseMessage("success",weekMapper.getSteadyCnt(id),weekInfo1, Integer.parseInt(HttpStatus.OK.toString()));
         return new ResponseEntity<WeekResponseMessage>(message, HttpStatus.OK);
     }
 
