@@ -8,7 +8,10 @@ public class User {
 
     private String id;
     private String password;
+    private String name;
+    private String token;
     private String qr_code;
+
 
     public String getQr_code() {
         return qr_code;
@@ -16,9 +19,7 @@ public class User {
 
     public void setQr_code(String qr_code) {
         this.qr_code = qr_code;
-    }
-
-    private String token;
+    };
 
     public String getToken() {
         return token;
@@ -47,10 +48,11 @@ public class User {
     }
 
     public User(){}
-    public User(String id, String password, String token){
+    public User(String id, String password, String name,String token){
         this.id = id;
         this.password = password;
         this.token = token;
+        this.name = name;
     }
 
 }

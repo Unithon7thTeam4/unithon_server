@@ -33,9 +33,9 @@ public class SignupController {
 
     @RequestMapping(value = "/signUp" ,method = RequestMethod.POST)
     @ExceptionHandler({SQLException.class,DataAccessException.class})
-    public ResponseEntity<SignupResponseMessage> SignIn(@RequestParam("id") String id, String password, String token) throws Exception{
+    public ResponseEntity<SignupResponseMessage> SignIn(@RequestParam("id") String id, String password,String name, String token) throws Exception{
 
-        User user = new User(id,password,token);
+        User user = new User(id,password,name,token);
         if(userMapper.isIdExist(id) != null){
             SignupResponseMessage message = new SignupResponseMessage("Fail", "", Integer.parseInt(HttpStatus.INTERNAL_SERVER_ERROR.toString()), "id already exist");
             return new ResponseEntity<SignupResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
