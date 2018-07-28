@@ -1,6 +1,9 @@
 package com.unithon.unithon_server.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.JsonObject;
+import com.unithon.unithon_server.WeekModel.WeekInfo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -14,14 +17,15 @@ public class WeekResponseMessage {
 
     private int steadyCnt;
     // Http Default Message
-    private String weekInfo;
+//    @JsonProperty
+    private WeekInfo weekInfo;
     // Error Message to USER
     private int statusCode;
 
 
     public WeekResponseMessage() {}
 
-    public WeekResponseMessage(String status,int steadyCnt ,String weekInfo, int statusCode) {
+    public WeekResponseMessage(String status,int steadyCnt ,WeekInfo weekInfo, int statusCode) {
         this.status = status;
         this.weekInfo = weekInfo;
         this.statusCode = statusCode;
