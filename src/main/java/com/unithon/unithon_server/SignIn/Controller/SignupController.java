@@ -37,11 +37,11 @@ public class SignupController {
 
         User user = new User(id,password,name,token);
         if(userMapper.isIdExist(id) != null){
-            SignupResponseMessage message = new SignupResponseMessage("Fail", "", Integer.parseInt(HttpStatus.INTERNAL_SERVER_ERROR.toString()), "id already exist");
-            return new ResponseEntity<SignupResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+            SignupResponseMessage message = new SignupResponseMessage("Fail", "", Integer.parseInt(HttpStatus.ALREADY_REPORTED.toString()), "id already exist");
+            return new ResponseEntity<SignupResponseMessage>(message, HttpStatus.ALREADY_REPORTED);
         } else {
             generateQR q = new generateQR();
-            String qr_contents = "unithon"+"//"+id+"//"+password;
+            String qr_contents = "unithon"+"/"+id+"/"+name;
             String qr_url = s3Uploader.upload(q.generateQRcode(qr_contents,id),"QR-code");
             user.setQr_code(qr_url);
             userMapper.insertUser(user);
