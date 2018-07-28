@@ -30,14 +30,13 @@ public class SignupController {
     @Resource(name="com.unithon.unithon_server.Mapper.UserMapper")
     UserMapper userMapper;
 
-
     @RequestMapping(value = "/signUp" ,method = RequestMethod.POST)
     @ExceptionHandler({SQLException.class,DataAccessException.class})
     public ResponseEntity<SignupResponseMessage> SignIn(@RequestParam("id") String id, String password,String name, String token) throws Exception{
 
         User user = new User(id,password,name,token);
         if(userMapper.isIdExist(id) != null){
-            SignupResponseMessage message = new SignupResponseMessage("Fail", "", Integer.parseInt(HttpStatus.ALREADY_REPORTED.toString()), "id already exist");
+            SignupResponseMessage message = new SignupResponseMessage("Fail", null, Integer.parseInt(HttpStatus.ALREADY_REPORTED.toString()), "id already exist");
             return new ResponseEntity<SignupResponseMessage>(message, HttpStatus.ALREADY_REPORTED);
         } else {
             generateQR q = new generateQR();

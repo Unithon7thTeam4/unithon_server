@@ -1,6 +1,7 @@
 package com.unithon.unithon_server.Model;
 
 
+import com.google.gson.JsonObject;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

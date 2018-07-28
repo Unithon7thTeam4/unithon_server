@@ -15,6 +15,7 @@ public class Complete {
     private String month;
     private String day;
     private int count;
+    private String capture;
 
 
 
