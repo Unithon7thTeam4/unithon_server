@@ -30,7 +30,7 @@ public class WeekController {
 
     @RequestMapping(value = "/weekly" ,method = RequestMethod.GET)
 //    @ExceptionHandler({SQLException.class,DataAccessException.class})
-    public ResponseEntity<WeekResponseMessage> day(@RequestParam("id") String id) throws Exception{
+    public ResponseEntity<WeekResponseMessage> week(@RequestParam("id") String id) throws Exception{
 
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
         Date currentTime = new Date ();
@@ -40,22 +40,18 @@ public class WeekController {
         String YMD[] = mTime.split("-");
         GetWeek gw = new GetWeek();
         String weeklist[] = gw.weekCalendar(mTime);
-        String yoilArray[] = {"sun","mon","tue","wen","thu","fri","sat"};
+        String yoilArray[] = {"sun","mon","tue","wed","thu","fri","sat"};
         String yesterday = gw.getYesterday(mTime);
 
         JsonObject weekInfo = new JsonObject();
         Gson gson = new Gson();
 
-        SteadyCheck sc = new SteadyCheck(id,yesterday,"minus");
-        System.out.println("현재시간 : "+ mTime);
         if(weekMapper.getComplete(new DateModel(id,yesterday)).size() == 0 && weekMapper.checkSteady(new SteadyCheck(id,mTime,"minus")) == null){
-            System.out.println("asdf");
             int steady_cnt = weekMapper.getSteadyCnt(id);
             if(steady_cnt != 0){
                 steady_cnt--;
                 weekMapper.updateSteady(new Steady(id,steady_cnt));
                 weekMapper.insertSteadyCheck(new SteadyCheck(id,mTime,"minus"));
-                System.out.println("minus steady");
             }
         }
 
