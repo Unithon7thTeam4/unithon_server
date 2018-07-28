@@ -36,7 +36,7 @@ public class SignupController {
 
         User user = new User(id,password,name,token);
         if(userMapper.isIdExist(id) != null){
-            SignupResponseMessage message = new SignupResponseMessage("Fail", "id already exist", Integer.parseInt(HttpStatus.FORBIDDEN.toString()));
+            SignupResponseMessage message = new SignupResponseMessage("Fail", null, Integer.parseInt(HttpStatus.FORBIDDEN.toString()));
             return new ResponseEntity<SignupResponseMessage>(message, HttpStatus.ALREADY_REPORTED);
         } else {
             generateQR q = new generateQR();
@@ -46,7 +46,7 @@ public class SignupController {
             userMapper.insertUser(user);
             Gson gson = new Gson();
             String userJson = gson.toJson(user);
-            SignupResponseMessage message = new SignupResponseMessage("Success",userJson, Integer.parseInt(HttpStatus.OK.toString()));
+            SignupResponseMessage message = new SignupResponseMessage("Success",userMapper.isIdExist(id), Integer.parseInt(HttpStatus.OK.toString()));
             return new ResponseEntity<SignupResponseMessage>(message, HttpStatus.OK);
         }
 

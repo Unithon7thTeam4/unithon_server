@@ -17,7 +17,6 @@ public class SigninResponseMessage {
     // Error Message to USER
     private int statusCode;
 
-
     public SigninResponseMessage() {}
 
     public SigninResponseMessage(String status, String message, int statusCode) {

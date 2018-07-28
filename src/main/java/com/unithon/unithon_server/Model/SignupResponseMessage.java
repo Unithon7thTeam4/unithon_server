@@ -14,16 +14,15 @@ public class SignupResponseMessage {
     // HttpStatus
     private String status;
     // Http Default Message
-    private String message;
+    private User user;
     // Error Message to USER
     private int statusCode;
 
-
     public SignupResponseMessage() {}
 
-    public SignupResponseMessage(String status, String message, int statusCode) {
+    public SignupResponseMessage(String status, User user, int statusCode) {
         this.status = status;
-        this.message = message;
+        this.user = user;
         this.statusCode = statusCode;
     }
 }
