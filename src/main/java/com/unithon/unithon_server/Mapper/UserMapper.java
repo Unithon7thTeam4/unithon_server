@@ -19,6 +19,7 @@ public interface UserMapper {
      User insertUser(User user) throws Exception;
 
 
+
      @Select("SELECT * From User WHERE id = #{id}")
      User isIdExist(String id) throws Exception;
 
