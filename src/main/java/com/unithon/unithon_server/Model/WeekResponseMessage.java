@@ -5,26 +5,26 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @ToString
-public class SigninResponseMessage {
-
+public class WeekResponseMessage {
     // HttpStatus
     private String status;
+
+    private int steadyCnt;
     // Http Default Message
-    private String message;
+    private String weekInfo;
     // Error Message to USER
     private int statusCode;
 
 
-    public SigninResponseMessage() {}
+    public WeekResponseMessage() {}
 
-    public SigninResponseMessage(String status, String message, int statusCode) {
+    public WeekResponseMessage(String status,int steadyCnt ,String weekInfo, int statusCode) {
         this.status = status;
-        this.message = message;
+        this.weekInfo = weekInfo;
         this.statusCode = statusCode;
-
-
+        this.steadyCnt = steadyCnt;
     }
 }

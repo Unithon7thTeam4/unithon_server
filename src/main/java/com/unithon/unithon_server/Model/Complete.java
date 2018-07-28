@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class Complete {
     private String id;
-    private int strch_type;
+    private String strch_type;
     private String date;
     private String year;
     private String month;
@@ -20,7 +20,7 @@ public class Complete {
 
 
     public Complete(){}
-    public Complete(String id, int strchType, int count){
+    public Complete(String id, String strchType, int count){
         this.id = id;
         this.strch_type = strchType;
         this.count = count;

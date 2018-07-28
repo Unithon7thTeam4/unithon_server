@@ -4,14 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @ToString
-public class DateModel {
+public class Steady {
     private String id;
-    private String date;
-    public DateModel(String id, String date){
+    private int steady_cnt;
+
+    public Steady(){}
+    public Steady(String id, int steady_cnt){
         this.id = id;
-        this.date = date;
+        this.steady_cnt = steady_cnt;
     }
 }

@@ -25,7 +25,7 @@ public class SigninController {
     UserMapper userMapper;
 
 
-    @RequestMapping(value = "/getUsers", method =  RequestMethod.GET)
+    @RequestMapping(value = "/getUsers", method = RequestMethod.GET)
     @ResponseStatus(value = HttpStatus.OK)
     private List<User> getUsers() throws Exception{
         return userMapper.getUsers();
@@ -38,30 +38,16 @@ public class SigninController {
     public ResponseEntity<SigninResponseMessage> SignIn(@RequestParam("id") String id, @RequestParam("password") String password) throws Exception{
 
         if(userMapper.isIdExist(id) == null){
-            SigninResponseMessage message = new SigninResponseMessage("Fail", "", "401", "not found id");
-            return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+            SigninResponseMessage message = new SigninResponseMessage("Fail", "ID", Integer.parseInt(HttpStatus.UNAUTHORIZED.toString()));
+            return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.UNAUTHORIZED);
         }else {
             if(userMapper.validPW(password) == null){
-                SigninResponseMessage message = new SigninResponseMessage("Fail", "", "401", "not valid pw");
-                return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+                SigninResponseMessage message = new SigninResponseMessage("Fail", "PW",Integer.parseInt(HttpStatus.UNAUTHORIZED.toString()));
+                return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.UNAUTHORIZED);
             }else{
-                SigninResponseMessage message = new SigninResponseMessage("Success", "", "200", "");
+                SigninResponseMessage message = new SigninResponseMessage("Success", "login success", Integer.parseInt(HttpStatus.OK.toString()));
                 return new ResponseEntity<SigninResponseMessage>(message, HttpStatus.OK);
             }
         }
     }
-
-//    @RequestMapping(value = "/signIn" ,method = RequestMethod.GET)
-//    @ExceptionHandler({SQLException.class,DataAccessException.class})
-//    public String a(@RequestParam("id") String id, @RequestParam("password") String password) throws Exception{
-//         return "sdf";
-//    }
-
-
-
-
-
-
-
-
 }
