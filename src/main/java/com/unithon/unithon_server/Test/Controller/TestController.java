@@ -19,9 +19,6 @@ public class TestController {
     private final S3Uploader s3Uploader;
 
 
-    @Value("${RdsUser}")
-    private String rdsuser;
-
     @RequestMapping(value = "/test", method =  RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     private String sendFCM(@Valid @RequestBody fcm message) throws Exception{
@@ -53,7 +50,7 @@ public class TestController {
     public String upload(@RequestParam("id") String id, String password, String token) throws IOException {
         System.out.println(id);
         System.out.println(password);
-        return rdsuser;
+        return "testParam";
     }
 
 }
