@@ -14,6 +14,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.sql.SQLException;
@@ -33,7 +34,7 @@ public class CompleteController {
 
     @RequestMapping(value = "/complete" ,method = RequestMethod.POST)
     @ExceptionHandler({SQLException.class,DataAccessException.class})
-    public ResponseEntity<CompleteResponseMessage> aa(@RequestParam("id") String id, @RequestParam int strch_type, int count) throws Exception{
+    public ResponseEntity<CompleteResponseMessage> complete(@RequestParam("id") String id, @RequestParam("strch_type") int strch_type, int count, @RequestParam("capture") MultipartFile capture) throws Exception{
         Complete complete = new Complete(id,strch_type,count);
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
         Date currentTime = new Date ();
@@ -44,11 +45,14 @@ public class CompleteController {
         complete.setMonth(YMD[1]);
         complete.setDay(YMD[2]);
 
+
         if(completeMapper.isExistComplete(complete) != null){
 
             CompleteResponseMessage message = new CompleteResponseMessage("Fail","already regist", Integer.parseInt(HttpStatus.ALREADY_REPORTED.toString()));
             return new ResponseEntity<CompleteResponseMessage>(message, HttpStatus.ALREADY_REPORTED);
         }else{
+
+            complete.setCapture(s3Uploader.upload(capture, "Capture"));
 
             completeMapper.inserComplete(complete);
 

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 //@Mapper
 public interface CompleteMapper {
 
-    @Select("INSERT INTO CompleteStretching(id,strch_type,date,year,month,day,count) VALUES(#{id},#{strch_type},#{date},#{year},#{month},#{day},#{count})")
+    @Select("INSERT INTO CompleteStretching(id,strch_type,date,year,month,day,count,capture) VALUES(#{id},#{strch_type},#{date},#{year},#{month},#{day},#{count},#{capture})")
     Complete inserComplete(Complete complete) throws Exception;
 
     @Select("SELECT * From CompleteStretching WHERE id = #{id} and strch_type = #{strch_type} and date = #{date}")
