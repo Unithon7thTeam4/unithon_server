@@ -37,7 +37,7 @@ public class SignupController {
         User user = new User(id,password,name,token);
         if(userMapper.isIdExist(id) != null){
             SignupResponseMessage message = new SignupResponseMessage("Fail", null, Integer.parseInt(HttpStatus.FORBIDDEN.toString()));
-            return new ResponseEntity<SignupResponseMessage>(message, HttpStatus.ALREADY_REPORTED);
+            return new ResponseEntity<SignupResponseMessage>(message, HttpStatus.FORBIDDEN);
         } else {
             generateQR q = new generateQR();
             String qr_contents = "unithon"+"/"+id+"/"+name;
