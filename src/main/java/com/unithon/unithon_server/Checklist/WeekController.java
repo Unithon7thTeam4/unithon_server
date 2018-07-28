@@ -16,9 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -56,9 +54,13 @@ public class WeekController {
             }
         }
 
+        List<String>  week = new ArrayList<>();
+
         WeekInfo weekInfo1 = new WeekInfo();
         for(int i = 0; i < weeklist.length; i++){
             String yoil = yoilArray[i];
+            week.add(weeklist[i]);
+
             DateModel dateModel = new DateModel(id, weeklist[i]);
             if(i == 0){
                 weekInfo1.setSun(weekMapper.getComplete(dateModel));
@@ -88,7 +90,7 @@ public class WeekController {
 //        String weekinfo = gson.toJson(weekInfo);
 
         Steady steady = new Steady("asd",0);
-        WeekResponseMessage message = new WeekResponseMessage("success",weekMapper.getSteadyCnt(id),weekInfo1, Integer.parseInt(HttpStatus.OK.toString()));
+        WeekResponseMessage message = new WeekResponseMessage("success",weekMapper.getSteadyCnt(id),weekInfo1,week, Integer.parseInt(HttpStatus.OK.toString()));
         return new ResponseEntity<WeekResponseMessage>(message, HttpStatus.OK);
     }
 
