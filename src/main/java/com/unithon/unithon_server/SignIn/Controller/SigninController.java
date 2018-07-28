@@ -4,6 +4,7 @@ package com.unithon.unithon_server.SignIn.Controller;
 import com.unithon.unithon_server.Mapper.UserMapper;
 import com.unithon.unithon_server.Model.SigninResponseMessage;
 import com.unithon.unithon_server.Model.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @RestController
 public class SigninController {
+
 
     @Resource(name="com.unithon.unithon_server.Mapper.UserMapper")
     UserMapper userMapper;

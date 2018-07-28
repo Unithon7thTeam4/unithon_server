@@ -5,6 +5,7 @@ import com.unithon.unithon_server.QR.generateQR;
 import com.unithon.unithon_server.S3.S3Uploader;
 import com.unithon.unithon_server.Test.Model.fcm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,10 @@ import java.io.IOException;
 @RestController
 public class TestController {
     private final S3Uploader s3Uploader;
+
+
+    @Value("${RdsUser}")
+    private String rdsuser;
 
     @RequestMapping(value = "/test", method =  RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
@@ -48,7 +53,7 @@ public class TestController {
     public String upload(@RequestParam("id") String id, String password, String token) throws IOException {
         System.out.println(id);
         System.out.println(password);
-        return password;
+        return rdsuser;
     }
 
 }
