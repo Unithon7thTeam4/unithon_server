@@ -15,7 +15,7 @@ public interface UserMapper {
      @Select("SELECT * FROM User")
      List<User> getUsers() throws Exception;
 
-     @Select("INSERT INTO User(id,password,name,token,qr_code) VALUES(#{id},#{password},#{name],#{token},#{qr_code})")
+     @Select("INSERT INTO User(id,password,name,token,qr_code) VALUES(#{id},#{password},#{name},#{token},#{qr_code})")
      User insertUser(User user) throws Exception;
 
 
