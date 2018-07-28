@@ -17,6 +17,7 @@ import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 @RequiredArgsConstructor
 @RestController
@@ -33,6 +34,8 @@ public class WeekController {
 
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
         Date currentTime = new Date ();
+        TimeZone time = TimeZone.getTimeZone("Asia/Seoul");
+        mSimpleDateFormat.setTimeZone(time);
         String mTime = mSimpleDateFormat.format (currentTime);
         String YMD[] = mTime.split("-");
         GetWeek gw = new GetWeek();
@@ -44,7 +47,7 @@ public class WeekController {
         Gson gson = new Gson();
 
         SteadyCheck sc = new SteadyCheck(id,yesterday,"minus");
-        System.out.println(mTime);
+        System.out.println("현재시간 : "+ mTime);
         if(weekMapper.getComplete(new DateModel(id,yesterday)).size() == 0 && weekMapper.checkSteady(new SteadyCheck(id,mTime,"minus")) == null){
             System.out.println("asdf");
             int steady_cnt = weekMapper.getSteadyCnt(id);
