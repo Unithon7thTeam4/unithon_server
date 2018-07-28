@@ -50,8 +50,15 @@ public class CompleteController {
             return new ResponseEntity<CompleteResponseMessage>(message, HttpStatus.FORBIDDEN);
         }else{
 
+            String abs = "https://s3.ap-northeast-2.amazonaws.com/originman-s3/strech/abs.png";
+            String body = "https://s3.ap-northeast-2.amazonaws.com/originman-s3/strech/body.png";
+            String leg = "https://s3.ap-northeast-2.amazonaws.com/originman-s3/strech/leg.png";
+
+            if(strch_type.equals("복근운동"))  complete.setCapture(abs);
+            if(strch_type.equals("전신운동"))  complete.setCapture(body);
+            if(strch_type.equals("다리운동"))  complete.setCapture(leg);
 //            complete.setCapture(s3Uploader.upload(capture, "Capture"));
-//            completeMapper.inserComplete(complete);
+            completeMapper.inserComplete(complete);
             int steady_cnt = completeMapper.getStedy(id);
 
             if(completeMapper.checkSteady(new SteadyCheck(id,mTime,"plus")) == null)
