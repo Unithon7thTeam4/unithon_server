@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 @RequiredArgsConstructor
 @RestController
@@ -35,14 +36,17 @@ public class CompleteController {
         Complete complete = new Complete(id,strch_type,count);
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
         Date currentTime = new Date ();
+        TimeZone time = TimeZone.getTimeZone("Asia/Seoul");
+        mSimpleDateFormat.setTimeZone(time);
         String mTime = mSimpleDateFormat.format (currentTime);
+
         String YMD[] = mTime.split("-");
         complete.setDate(mTime);
         complete.setYear(YMD[0]);
         complete.setMonth(YMD[1]);
         complete.setDay(YMD[2]);
 
-
+        System.out.println("ju");
 
         if(completeMapper.isExistComplete(complete) != null){
 
