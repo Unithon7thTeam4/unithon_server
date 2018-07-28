@@ -8,19 +8,19 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class CompleteResponseMessage {
+public class QRcodeResponseMessage {
 
     // HttpStatus
     private String status;
     // Http Default Message
-    private String message;
+    private String qrcodePath;
     private int statusCode;
 
-    public CompleteResponseMessage() {}
+    public QRcodeResponseMessage() {}
 
-    public CompleteResponseMessage(String status, String message, int statusCode) {
+    public QRcodeResponseMessage(String status, String qrcodePath, int statusCode) {
         this.status = status;
-        this.message = message;
+        this.qrcodePath = qrcodePath;
         this.statusCode = statusCode;
     }
 }

@@ -1,7 +1,6 @@
 package com.unithon.unithon_server.Mapper;
 
-import com.unithon.unithon_server.Model.Complete;
-import com.unithon.unithon_server.Model.DateModel;
+import com.unithon.unithon_server.Model.*;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +10,22 @@ import java.util.List;
 //@Mapper
 public interface WeekMapper {
 
+    @Select("SELECT steady_cnt FROM User WHERE id = #{id}")
+    int getSteadyCnt(String id) throws Exception;
+
+    @Select("SELECT strch_type FROM User WHERE id = #{id}")
+    int getStrchType(String id) throws Exception;
+
+    @Select("UPDATE User SET steady_cnt = #{steady_cnt} WHERE id = #{id}")
+    void updateSteady(Steady steady) throws Exception;
+
     @Select("SELECT strch_type, date,capture From CompleteStretching WHERE id = #{id} and date = #{date}")
     List<Complete> getComplete(DateModel date) throws Exception;
+
+    @Select("SELECT * FROM SteadyCheck WHERE id = #{id} and date = #{date} and opt = #{opt}")
+    SteadyCheck checkSteady(SteadyCheck check) throws Exception;
+
+    @Select("INSERT INTO SteadyCheck(id,date,opt) VALUES(#{id},#{date},#{opt})")
+    void insertSteadyCheck(SteadyCheck check) throws Exception;
+
 }

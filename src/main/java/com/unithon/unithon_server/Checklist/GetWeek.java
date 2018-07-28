@@ -1,6 +1,9 @@
 package com.unithon.unithon_server.Checklist;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class GetWeek {
 
@@ -55,5 +58,24 @@ public class GetWeek {
         }
 
         return arrYMD;
+    }
+
+
+    public String getYesterday(String yyyymmdd) throws Exception {
+
+        String thisDay = yyyymmdd;
+        //하루 증가된 날짜 계산을 위해서
+        String yesterday = thisDay.replaceAll("-","");
+        int thisDayMoreInt = Integer.parseInt(yesterday);
+        thisDayMoreInt = thisDayMoreInt-1;
+        yesterday = String.valueOf(thisDayMoreInt);
+
+        SimpleDateFormat sdfmt = new SimpleDateFormat("yyyyMMdd");
+        Date date = sdfmt.parse(yesterday);
+
+        yesterday = new java.text.SimpleDateFormat ("yyyy-MM-dd").format(date);
+
+        return yesterday;
+
     }
 }

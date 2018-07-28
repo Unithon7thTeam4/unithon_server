@@ -3,10 +3,7 @@ package com.unithon.unithon_server.Complete.Controller;
 import com.google.gson.Gson;
 import com.unithon.unithon_server.Mapper.CompleteMapper;
 import com.unithon.unithon_server.Mapper.UserMapper;
-import com.unithon.unithon_server.Model.Complete;
-import com.unithon.unithon_server.Model.CompleteResponseMessage;
-import com.unithon.unithon_server.Model.SignupResponseMessage;
-import com.unithon.unithon_server.Model.User;
+import com.unithon.unithon_server.Model.*;
 import com.unithon.unithon_server.QR.generateQR;
 import com.unithon.unithon_server.S3.S3Uploader;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +31,7 @@ public class CompleteController {
 
     @RequestMapping(value = "/complete" ,method = RequestMethod.POST)
     @ExceptionHandler({SQLException.class,DataAccessException.class})
-    public ResponseEntity<CompleteResponseMessage> complete(@RequestParam("id") String id, @RequestParam("strch_type") int strch_type, int count, @RequestParam("capture") MultipartFile capture) throws Exception{
+    public ResponseEntity<CompleteResponseMessage> complete(@RequestParam("id") String id, @RequestParam("strch_type") String strch_type, int count, @RequestParam("capture") MultipartFile capture) throws Exception{
         Complete complete = new Complete(id,strch_type,count);
         SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
         Date currentTime = new Date ();
@@ -46,17 +43,21 @@ public class CompleteController {
         complete.setDay(YMD[2]);
 
 
+
         if(completeMapper.isExistComplete(complete) != null){
 
-            CompleteResponseMessage message = new CompleteResponseMessage("Fail","already regist", Integer.parseInt(HttpStatus.ALREADY_REPORTED.toString()));
-            return new ResponseEntity<CompleteResponseMessage>(message, HttpStatus.ALREADY_REPORTED);
+            CompleteResponseMessage message = new CompleteResponseMessage("Fail","already regist", Integer.parseInt(HttpStatus.FORBIDDEN.toString()));
+            return new ResponseEntity<CompleteResponseMessage>(message, HttpStatus.FORBIDDEN);
         }else{
 
             complete.setCapture(s3Uploader.upload(capture, "Capture"));
-
             completeMapper.inserComplete(complete);
-
-            CompleteResponseMessage message = new CompleteResponseMessage("Success","asdf", Integer.parseInt(HttpStatus.OK.toString()));
+            int steady_cnt = completeMapper.getStedy(id);
+            if(steady_cnt != 7){
+                steady_cnt++;
+                completeMapper.updateSteady(new Steady(id,steady_cnt));
+            }
+            CompleteResponseMessage message = new CompleteResponseMessage("Success","complete stretching", Integer.parseInt(HttpStatus.OK.toString()));
             return new ResponseEntity<CompleteResponseMessage>(message, HttpStatus.OK);
         }
 
