@@ -40,7 +40,8 @@ public class SignupController {
             return new ResponseEntity<SignupResponseMessage>(message, HttpStatus.FORBIDDEN);
         } else {
             generateQR q = new generateQR();
-            String qr_contents = "unithon"+"/"+id+"/"+name;
+
+            String qr_contents = "unithon"+"/"+id+"/"+"Unithon";
             String qr_url = s3Uploader.upload(q.generateQRcode(qr_contents,id),"QR-code");
             user.setQr_code(qr_url);
             userMapper.insertUser(user);
