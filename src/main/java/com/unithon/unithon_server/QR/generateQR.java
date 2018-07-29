@@ -21,7 +21,7 @@ public class generateQR {
             BitMatrix bitMatrix = qrCodeWriter.encode(
                     contents,
                     BarcodeFormat.QR_CODE,
-                    300, 300); // width x height
+                    500, 500); // width x height
 
             BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
             // ImageIO를 사용한 바코드 파일쓰기

@@ -1,6 +1,7 @@
 package com.unithon.unithon_server.Complete.Controller;
 
 import com.google.gson.Gson;
+import com.unithon.unithon_server.FCM.pushFcmNotification;
 import com.unithon.unithon_server.Mapper.CompleteMapper;
 import com.unithon.unithon_server.Mapper.UserMapper;
 import com.unithon.unithon_server.Model.*;
@@ -47,6 +48,10 @@ public class CompleteController {
         complete.setDay(YMD[2]);
 
         System.out.println("ju");
+
+        String token = "fJpl8HJMY7Q:APA91bGRj1u8LBnwE5pZqWER4lmU5xi-ddy9H6l-9Dzy4DKMhLkctHiSFFd7h2KQ9evhbvuQ0UnVtZkvZAoC0cg9aYCAz673OV2iP8NHMZ250LGbNfXpsSNl_XNMJi9MtpFsap9CU7AKfDLvl1D9XndIuzcsKAUmDA";
+        pushFcmNotification fcm = new pushFcmNotification("바른 자세에 한발 다가가셨네요!",token);
+        fcm.start();
 
         if(completeMapper.isExistComplete(complete) != null){
 

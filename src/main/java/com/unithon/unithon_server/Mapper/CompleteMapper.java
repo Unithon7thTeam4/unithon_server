@@ -26,6 +26,9 @@ public interface CompleteMapper {
     @Select("SELECT * FROM SteadyCheck WHERE id = #{id} and date = #{date} and opt = #{opt}")
     SteadyCheck checkSteady(SteadyCheck check) throws Exception;
 
+    @Select("SELECT token FROM User WHERE id = #{id}")
+    String getToekn(String id) throws Exception;
+
     @Select("INSERT INTO SteadyCheck(id,date,opt) VALUES(#{id},#{date},#{opt})")
     void insertSteadyCheck(SteadyCheck check) throws Exception;
 

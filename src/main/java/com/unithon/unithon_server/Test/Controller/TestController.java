@@ -22,8 +22,8 @@ public class TestController {
     @RequestMapping(value = "/test", method =  RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     private String sendFCM(@Valid @RequestBody fcm message) throws Exception{
-
-        pushFcmNotification fcm = new pushFcmNotification(message.getMessage(),message.getToken());
+        String token = "fJpl8HJMY7Q:APA91bGRj1u8LBnwE5pZqWER4lmU5xi-ddy9H6l-9Dzy4DKMhLkctHiSFFd7h2KQ9evhbvuQ0UnVtZkvZAoC0cg9aYCAz673OV2iP8NHMZ250LGbNfXpsSNl_XNMJi9MtpFsap9CU7AKfDLvl1D9XndIuzcsKAUmDA";
+        pushFcmNotification fcm = new pushFcmNotification("바른 자세에 한발 다가가셨네요!",token);
         fcm.start();
         return "asdadsf";
     }
